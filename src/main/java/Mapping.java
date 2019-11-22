@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import main.java.Class.MeteoData;
 
 @Controller
-public class GreetingController {
+public class Mapping {
 
     @RequestMapping(value= {"/accueil","/"} , method = RequestMethod.GET)
     public String accueil(@RequestParam(name="name", required=false, defaultValue="World") String name, Model model) {
