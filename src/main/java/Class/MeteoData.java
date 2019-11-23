@@ -8,8 +8,8 @@ public class MeteoData {
         return nomVille;
     }
 
-    public void setNomVille(String id) {
-        this.nomVille = id;
+    public void setNomVille(String nomVille) {
+        this.nomVille = nomVille;
     }
 
 }

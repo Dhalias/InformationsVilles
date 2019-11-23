@@ -1,5 +1,8 @@
 package main.java;
 
+import java.io.IOException;
+
+import org.json.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import main.java.Class.MeteoData;
+import main.java.Class.RequeteAPIMeteo;
 
 @Controller
 public class Mapping {
@@ -28,8 +32,12 @@ public class Mapping {
     }
     
     @PostMapping("/projet/meteo")
-    public String meteoSubmit(@ModelAttribute MeteoData meteoData) {
-        return "resultMeteo";
+    public String meteoSubmit(@ModelAttribute MeteoData meteoData, Model model) throws IOException {
+    	RequeteAPIMeteo requete = new RequeteAPIMeteo(meteoData.getNomVille());
+    	JSONObject data = requete.getRequeteJSON();
+    	model.addAttribute( "temp", data.getJSONObject( "main" ).get( "temp" ) );
+    	model.addAttribute( "pression", data.getJSONObject( "main" ).get( "pressure" ) );
+        return "meteoResultat";
     }
 
 }
