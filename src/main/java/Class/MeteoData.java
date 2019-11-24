@@ -11,5 +11,5 @@ public class MeteoData {
     public void setNomVille(String nomVille) {
         this.nomVille = nomVille;
     }
-
+    
 }

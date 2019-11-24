@@ -1,6 +1,7 @@
 package main.java;
 
 import java.io.IOException;
+import java.util.Locale;
 
 import org.json.JSONObject;
 import org.springframework.stereotype.Controller;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import main.java.Class.MeteoData;
 import main.java.Class.RequeteAPIMeteo;
+import main.java.Application;
 
 @Controller
 public class Mapping {
@@ -33,10 +35,31 @@ public class Mapping {
     
     @PostMapping("/projet/meteo")
     public String meteoSubmit(@ModelAttribute MeteoData meteoData, Model model) throws IOException {
+    	
+    	String temperature,pression,path_image,weatherCode,humidite,vent,pays,longitude,latitude;
     	RequeteAPIMeteo requete = new RequeteAPIMeteo(meteoData.getNomVille());
     	JSONObject data = requete.getRequeteJSON();
-    	model.addAttribute( "temp", data.getJSONObject( "main" ).get( "temp" ) );
-    	model.addAttribute( "pression", data.getJSONObject( "main" ).get( "pressure" ) );
+    	
+    	temperature = data.getJSONObject( "main" ).get( "temp" ).toString();
+    	pression = data.getJSONObject( "main" ).get( "pressure" ).toString();
+    	weatherCode = data.getJSONArray( "weather" ).getJSONObject( 0 ).getString( "main" );
+    	path_image = Application.obtenirImageArrierePlan( weatherCode );
+    	humidite = data.getJSONObject( "main" ).get( "humidity" ).toString();
+    	vent = data.getJSONObject( "wind" ).get( "speed" ).toString();
+    	pays = new Locale("",data.getJSONObject( "sys" ).get( "country" ).toString()).getDisplayCountry();
+    	longitude = data.getJSONObject( "coord" ).get("lon").toString();
+    	latitude = data.getJSONObject( "coord" ).get("lat").toString();
+
+    	
+    	model.addAttribute( "temp", temperature );
+    	model.addAttribute( "pression", pression );
+    	model.addAttribute( "path_image", path_image );
+    	model.addAttribute( "humidite", humidite );
+    	model.addAttribute( "vent", vent );
+    	model.addAttribute( "pays",pays );
+    	model.addAttribute( "longitude",longitude );
+    	model.addAttribute( "latitude", latitude );
+    	
         return "meteoResultat";
     }
 

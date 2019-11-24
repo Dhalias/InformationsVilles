@@ -1,0 +1,7 @@
+clear.jpg : https://www.pexels.com/photo/photo-of-blue-sky-912110/
+thunderstorm.jpg : https://www.pexels.com/photo/clouds-dark-clouds-thunderstorm-thunder-9466/
+light_rain.jpg : https://www.pexels.com/photo/road-landscape-nature-forest-39811/
+rain.jpg : https://www.pexels.com/photo/rain-drops-459451/
+snow.jpg : https://www.pexels.com/photo/gray-scale-photo-of-trees-on-snow-163756/
+clouds.jpg : https://www.pexels.com/photo/scenic-view-of-clouds-during-dawn-1269777/
+default.jpg : https://www.pexels.com/photo/agriculture-clouds-countryside-cropland-440731/
