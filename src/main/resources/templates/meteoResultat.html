@@ -1,15 +1,17 @@
 <!DOCTYPE HTML>
-	<html xmlns:th="http://www.thymeleaf.org">
+	<html xmlns:th="http://www.thymeleaf.org" th:style="'background-image:url(' + ${path_image} + ');background-size: cover;'">
 		<head>
     		<title>Java Web Application</title>
-    		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+			<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+			<link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet">
+			<link rel="stylesheet" type="text/css" th:href="@{/css/base.css}" />
     		<link rel="stylesheet" type="text/css" th:href="@{/css/meteoResultat.css}" />
 		</head>
 		
 		<body>
 			<nav>
 				<ul>
-					<li class="navbarLink" style="float:left;">Accueil</li>
+					<a href="/accueil"><li class="navbarLink" style="float:left;">Accueil</li></a>
 					<li class="navbarLink" style="float:right;">Code source</li>
 				</ul>
 			</nav>
@@ -20,11 +22,55 @@
                 </p>
 
                 <section>
-                    <p>
-                        Température actuelle : <span th:text="${temp}"/><br>
-                        Pression actuelle : <span th:text="${pression}"/><br>
+                    <table>
+						<tbody>
 
-                    </p>
+							<tr>
+								<th colspan="2">Informations météorologiques</td>
+							</tr>
+
+							<tr>
+								<td>Température actuelle : </td>
+								<td><span th:text="${temp}+ ' °C'"/></td>
+								
+							</tr>
+
+							<tr>
+								<td>Pression atmosphérique : </td>
+								<td><span th:text="${pression}+ ' hPa'"/></td>
+							</tr>
+
+							<tr>
+								<td>Humidité : </td>
+								<td><span th:text="${humidite}+ ' %'"/></td>
+							</tr>
+
+							<tr>
+								<td>Vent : </td>
+								<td><span th:text="${vent}+ ' m/s'"/></td>
+							</tr>
+
+							<tr>
+								<th colspan="2">Informations géographiques</td>
+							</tr>
+
+							<tr>
+								<td>Pays : </td>
+								<td><span th:text="${pays}"/></td>
+							</tr>
+
+							<tr>
+								<td>Longitude : </td>
+								<td><span th:text="${longitude}"/></td>
+							</tr>
+
+							<tr>
+								<td>Latitude : </td>
+								<td><span th:text="${latitude}"/></td>
+							</tr>
+
+						</tbody>
+					</table>
                 </section>
 			</div>
 

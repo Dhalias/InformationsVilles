@@ -2,14 +2,16 @@
 	<html xmlns:th="http://www.thymeleaf.org">
 		<head>
     		<title>Java Web Application</title>
-    		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    		<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+			<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+			<link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet">
+			<link rel="stylesheet" type="text/css" th:href="@{/css/base.css}" />
+    		<link rel="stylesheet" type="text/css" th:href="@{/css/accueil.css}" />
 		</head>
 		
 		<body>
 			<nav>
 				<ul>
-					<li class="navbarLink" style="float:left;">Accueil</li>
+					<a href="/accueil"><li class="navbarLink" style="float:left;">Accueil</li></a>
 					<li class="navbarLink" style="float:right;">Code source</li>
 				</ul>
 			</nav>

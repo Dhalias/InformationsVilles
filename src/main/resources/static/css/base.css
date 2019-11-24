@@ -1,0 +1,22 @@
+*{
+    margin:0px;
+    padding:0px;
+    font-family: 'Raleway', sans-serif;
+}
+
+nav {
+    background-color: #ececec;
+    height: 65px;
+    width: 100%;
+    opacity: 0.85;
+}
+
+nav li {
+    color: black;
+    list-style-type: none;
+    margin:23px;
+}
+
+a{
+    text-decoration: none;
+}
