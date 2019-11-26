@@ -31,3 +31,8 @@ div#container input{
     padding: 3px;
     margin-bottom: 2px;
 }
+
+.erreur {
+    color : red;
+    font-weight: bold;
+}
