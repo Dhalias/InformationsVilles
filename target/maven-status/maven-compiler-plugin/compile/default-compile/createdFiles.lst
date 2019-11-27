@@ -1,4 +1,5 @@
 main\java\Mapping.class
 main\java\Class\MeteoData.class
-main\java\Class\RequeteAPIMeteo.class
+main\java\Class\RequeteAPI_Meteo.class
+main\java\Class\RequeteAPI_News.class
 main\java\Application.class

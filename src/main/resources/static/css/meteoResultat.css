@@ -10,3 +10,8 @@
 th {
     padding : 15px;
 }
+.article-journal{
+    margin: 20px;
+    height: 125px;
+    text-align: none;
+}

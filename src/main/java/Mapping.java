@@ -3,6 +3,7 @@ package main.java;
 import java.io.IOException;
 import java.util.Locale;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,7 +16,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import main.java.Class.MeteoData;
-import main.java.Class.RequeteAPIMeteo;
+import main.java.Class.RequeteAPI_Meteo;
+import main.java.Class.RequeteAPI_News;
 import main.java.Application;
 
 @Controller
@@ -41,7 +43,7 @@ public class Mapping {
 		String modeleRendu = "redirect:/projet/meteo";
 		attribut.addAttribute( "erreur","true" );
 
-		RequeteAPIMeteo requete = new RequeteAPIMeteo( meteoData.getNomVille() );
+		RequeteAPI_Meteo requete = new RequeteAPI_Meteo( meteoData.getNomVille() );
 
 		if ( requete.isRequeteAPI_Succes() ) {
 
@@ -67,6 +69,24 @@ public class Mapping {
 			model.addAttribute( "pays", pays );
 			model.addAttribute( "longitude", longitude );
 			model.addAttribute( "latitude", latitude );
+			
+			RequeteAPI_News requete2 = new RequeteAPI_News( data.getJSONObject( "sys" ).get( "country" ).toString() );
+			data = requete2.getRequeteJSON();
+			JSONArray articlesJSON = requete2.getRequeteJSON().getJSONArray( "articles" );
+			String[][] tabArticle = new String[5][6];
+			
+			for ( int i = 0; i < tabArticle.length; i++ ) {
+				JSONObject articleCourantJSON = articlesJSON.getJSONObject( i );
+				
+				tabArticle[i][0] = articleCourantJSON.get( "title" ).toString();
+				tabArticle[i][1] = articleCourantJSON.get( "description" ).toString();
+				tabArticle[i][2] = articleCourantJSON.get( "url" ).toString();
+				tabArticle[i][3] = articleCourantJSON.get( "urlToImage" ).toString();
+				tabArticle[i][4] = articleCourantJSON.get( "publishedAt" ).toString();
+				
+			}
+			
+			 model.addAttribute( "article", tabArticle );
 
 			modeleRendu = "meteoResultat";
 

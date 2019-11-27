@@ -71,8 +71,18 @@
 
 						</tbody>
 					</table>
+				</section>
+				</div>
+				<section>
+                   <div class="article-journal" th:each="rows: ${article}">
+						<a th:href="@{${rows[2]}}">
+							<img height="75" width="125" align="left" th:src="@{${rows[3]}}" />
+							<span style="font-weight: bold;"th:text="${rows[0]}"></span><br>
+							<span th:text="'description : '+${rows[1]}"></span><br>
+						</a>
+					</div>
                 </section>
-			</div>
+			
 
 			
 		</body>
