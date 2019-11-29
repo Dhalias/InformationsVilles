@@ -2,7 +2,8 @@
 	<html xmlns:th="http://www.thymeleaf.org" th:style="'background-image:url(' + ${path_image} + ');background-size: cover;'">
 		<head>
     		<title>Java Web Application</title>
-			<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+			<meta http-equiv="Content-Type" content="text/html;"/>
+			<meta charset="UTF-8"/>
 			<link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet">
 			<link rel="stylesheet" type="text/css" th:href="@{/css/base.css}" />
     		<link rel="stylesheet" type="text/css" th:href="@{/css/meteoResultat.css}" />
@@ -73,12 +74,12 @@
 					</table>
 				</section>
 				</div>
-				<section>
+				<section style="display: flex;flex-direction: column;">
                    <div class="article-journal" th:each="rows: ${article}">
 						<a th:href="@{${rows[2]}}">
-							<img height="75" width="125" align="left" th:src="@{${rows[3]}}" />
+							<img  style="margin-right: 5px;"height="75" width="125" align="left" th:src="@{${rows[3]}}" />
 							<span style="font-weight: bold;"th:text="${rows[0]}"></span><br>
-							<span th:text="'description : '+${rows[1]}"></span><br>
+							<span style="font-size: small;"th:text="${rows[1]}"></span>
 						</a>
 					</div>
                 </section>

@@ -73,7 +73,7 @@ public class Mapping {
 			RequeteAPI_News requete2 = new RequeteAPI_News( data.getJSONObject( "sys" ).get( "country" ).toString() );
 			data = requete2.getRequeteJSON();
 			JSONArray articlesJSON = requete2.getRequeteJSON().getJSONArray( "articles" );
-			String[][] tabArticle = new String[5][6];
+			String[][] tabArticle = new String[3][5];
 			
 			for ( int i = 0; i < tabArticle.length; i++ ) {
 				JSONObject articleCourantJSON = articlesJSON.getJSONObject( i );

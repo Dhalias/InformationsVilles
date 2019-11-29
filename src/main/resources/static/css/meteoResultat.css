@@ -14,4 +14,20 @@ th {
     margin: 20px;
     height: 125px;
     text-align: none;
+    width: 50%;
+    word-wrap: break-word;
+    background-color: #BCC1C4;
+    padding: 15px;
+    border: 2px black solid;
+    border-radius: 5px;
+    float:right;
+    padding-bottom: 0px;
 }
+
+a:link {
+    color: black;
+  }
+  
+a:visited,a:hover {
+    color: blue;
+  }
