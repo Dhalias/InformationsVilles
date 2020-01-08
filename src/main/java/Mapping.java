@@ -24,23 +24,16 @@ import main.java.Application;
 public class Mapping {
 
 	@RequestMapping(value = { "/accueil", "/" }, method = RequestMethod.GET)
-	public String accueil( @RequestParam(name = "name", required = false, defaultValue = "World") String name,
-			Model model ) {
-		model.addAttribute( "name", name );
-		return "accueil";
-	}
-
-	@GetMapping("/projet/meteo")
 	public String meteo( @RequestParam(name = "erreur", required = false) String erreur,Model model ) {
 		model.addAttribute( "erreur", erreur );
 		model.addAttribute( "meteoData", new MeteoData() );
 		return "meteo";
 	}
 
-	@PostMapping("/projet/meteo")
+	@PostMapping(value = { "/accueil", "/" })
 	public String meteoSubmit( @ModelAttribute MeteoData meteoData, RedirectAttributes attribut, Model model) throws IOException {
 
-		String modeleRendu = "redirect:/projet/meteo";
+		String modeleRendu = "redirect:/";
 		attribut.addAttribute( "erreur","true" );
 
 		RequeteAPI_Meteo requete = new RequeteAPI_Meteo( meteoData.getNomVille() );
