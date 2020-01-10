@@ -24,19 +24,21 @@ import main.java.Application;
 public class Mapping {
 
 	@RequestMapping(value = { "/accueil", "/" }, method = RequestMethod.GET)
-	public String meteo( @RequestParam(name = "erreur", required = false) String erreur,Model model ) {
+	public String meteo( @RequestParam(name = "erreur", required = false) String erreur, Model model ) {
 		model.addAttribute( "erreur", erreur );
 		model.addAttribute( "meteoData", new MeteoData() );
 		return "meteo";
 	}
 
 	@PostMapping(value = { "/accueil", "/" })
-	public String meteoSubmit( @ModelAttribute MeteoData meteoData, RedirectAttributes attribut, Model model) throws IOException {
+	public String meteoSubmit( @ModelAttribute MeteoData meteoData, RedirectAttributes attribut, Model model )
+			throws IOException {
 
+		String nomVille = meteoData.getNomVille();
 		String modeleRendu = "redirect:/";
-		attribut.addAttribute( "erreur","true" );
+		attribut.addAttribute( "erreur", "true" );
 
-		RequeteAPI_Meteo requete = new RequeteAPI_Meteo( meteoData.getNomVille() );
+		RequeteAPI_Meteo requete = new RequeteAPI_Meteo( nomVille );
 
 		if ( requete.isRequeteAPI_Succes() ) {
 
@@ -44,15 +46,34 @@ public class Mapping {
 
 			JSONObject data = requete.getRequeteJSON();
 
+			System.out.println( "\n[HTTP]\tRecuperation des donnees meteorologiques\n" );
+
 			temperature = data.getJSONObject( "main" ).get( "temp" ).toString();
+			System.out.println( "[HTTP]\tTemperature recuperee pour " + nomVille );
+
 			pression = data.getJSONObject( "main" ).get( "pressure" ).toString();
+			System.out.println( "[HTTP]\tPression recuperee pour " + nomVille );
+
 			weatherCode = data.getJSONArray( "weather" ).getJSONObject( 0 ).getString( "main" );
+			System.out.println( "[HTTP]\tCode meteorologique recupere pour " + nomVille );
+
 			path_image = Application.obtenirImageArrierePlan( weatherCode );
+			System.out.println( "[HTTP]\tImageArrierePlan recuperee pour " + nomVille );
+
 			humidite = data.getJSONObject( "main" ).get( "humidity" ).toString();
+			System.out.println( "[HTTP]\tHumidite recuperee pour " + nomVille );
+
 			vent = data.getJSONObject( "wind" ).get( "speed" ).toString();
+			System.out.println( "[HTTP]\tVent recuperee pour " + nomVille );
+
 			pays = new Locale( "", data.getJSONObject( "sys" ).get( "country" ).toString() ).getDisplayCountry();
+			System.out.println( "[HTTP]\tPays recupere pour " + nomVille );
+
 			longitude = data.getJSONObject( "coord" ).get( "lon" ).toString();
+			System.out.println( "[HTTP]\tLongitude recuperee pour " + nomVille );
+
 			latitude = data.getJSONObject( "coord" ).get( "lat" ).toString();
+			System.out.println( "[HTTP]\tLatitude recuperee pour " + nomVille );
 
 			model.addAttribute( "temp", temperature );
 			model.addAttribute( "pression", pression );
@@ -62,24 +83,34 @@ public class Mapping {
 			model.addAttribute( "pays", pays );
 			model.addAttribute( "longitude", longitude );
 			model.addAttribute( "latitude", latitude );
-			
+			System.out.println( "\n[HTTP]\tToutes les donnees ont ete ajoutees au model" );
+
 			RequeteAPI_News requete2 = new RequeteAPI_News( data.getJSONObject( "sys" ).get( "country" ).toString() );
-			data = requete2.getRequeteJSON();
-			JSONArray articlesJSON = requete2.getRequeteJSON().getJSONArray( "articles" );
-			String[][] tabArticle = new String[3][5];
-			
-			for ( int i = 0; i < tabArticle.length; i++ ) {
-				JSONObject articleCourantJSON = articlesJSON.getJSONObject( i );
-				
-				tabArticle[i][0] = articleCourantJSON.get( "title" ).toString();
-				tabArticle[i][1] = articleCourantJSON.get( "description" ).toString();
-				tabArticle[i][2] = articleCourantJSON.get( "url" ).toString();
-				tabArticle[i][3] = articleCourantJSON.get( "urlToImage" ).toString();
-				tabArticle[i][4] = articleCourantJSON.get( "publishedAt" ).toString();
-				
+
+			if ( requete2.isRequeteAPI_Succes() ) {
+
+				data = requete2.getRequeteJSON();
+
+				if ( !data.get( "totalResults" ).toString().equals( "0" ) ) {
+					
+					JSONArray articlesJSON = data.getJSONArray( "articles" );
+					String[][] tabArticle = new String[3][5];
+
+					for ( int i = 0; i < tabArticle.length; i++ ) {
+						JSONObject articleCourantJSON = articlesJSON.getJSONObject( i );
+
+						tabArticle[i][0] = articleCourantJSON.get( "title" ).toString();
+						tabArticle[i][1] = articleCourantJSON.get( "description" ).toString();
+						tabArticle[i][2] = articleCourantJSON.get( "url" ).toString();
+						tabArticle[i][3] = articleCourantJSON.get( "urlToImage" ).toString();
+						tabArticle[i][4] = articleCourantJSON.get( "publishedAt" ).toString();
+
+					}
+
+					model.addAttribute( "article", tabArticle );
+				}
+
 			}
-			
-			 model.addAttribute( "article", tabArticle );
 
 			modeleRendu = "meteoResultat";
 

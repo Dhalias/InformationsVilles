@@ -1,22 +1,39 @@
-*{
-    margin:0px;
-    padding:0px;
+* {
+    margin: 0px;
     font-family: 'Raleway', sans-serif;
-}
+  }
 
-nav {
-    background-color: #ececec;
-    height: 65px;
-    width: 100%;
-    opacity: 0.85;
+nav ul { 
+    padding: 0px;
+    margin: 0px;
+    overflow: hidden;
+    list-style: none; 
 }
-
-nav li {
+nav li { 
+    position: relative; 
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+nav a {
     color: black;
-    list-style-type: none;
-    margin:23px;
-}
-
-a{
     text-decoration: none;
+    padding: 20px 20px;
+    position: relative;
 }
+nav a:after {    
+    background: none repeat scroll 0 0 transparent;
+    bottom: 0;
+    content: "";
+    display: block;
+    height: 2px;
+    left: 50%;
+    position: absolute;
+    background: #bfbfc3;
+    transition: width 0.3s ease 0s, left 0.3s ease 0s;
+    width: 0;
+}
+nav a:hover:after { 
+    width: 100%; 
+    left: 0; 
+}
+  

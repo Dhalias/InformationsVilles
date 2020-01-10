@@ -61,7 +61,7 @@ public class RequeteAPI_Meteo {
 
 		}else {
 			System.out.println( "[HTTP]\tImpossible d'ouvrir la connexion au site. Erreur dans la requete.\n"
-							   +"[HTTP]\tAssurez-vous que le nom de la ville entree est valide." );
+							   +"[HTTP]\tAssurez-vous que le nom de la ville entre est valide." );
 		}
 
 		

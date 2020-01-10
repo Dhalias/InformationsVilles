@@ -23,11 +23,3 @@ th {
     float:right;
     padding-bottom: 0px;
 }
-
-a:link {
-    color: black;
-  }
-  
-a:visited,a:hover {
-    color: blue;
-  }
